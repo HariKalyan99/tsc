@@ -1,15 +1,7 @@
-import React, { useState } from "react";
-import Counter from "./components/Counter";
+import { Recipes } from "./components/Recipes";
 
 const App = () => {
-  const [count, setCount] = useState<number>(0);
-
-  return (
-    <div>
-      <Counter value={count} />
-      <button onClick={() => setCount((prev) => prev + 1)}>+ 1</button>
-    </div>
-  );
+  return <Recipes />;
 };
 
 export default App;
