@@ -2,6 +2,9 @@ require("dotenv").config();
 const express = require("express");
 const { Sequelize, DataTypes } = require("sequelize");
 const app = express();
+const cors = require("cors");
+
+app.use(cors());
 
 app.use(express.json());
 
@@ -60,9 +63,7 @@ app.get("/recipes", async (req, res) => {
   try {
     const recipes = await Recipe.findAll();
 
-    console.log(recipes);
-
-    res.status(200).json(recipes);
+    res.status(200).json({ recipes });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -71,7 +72,6 @@ app.get("/recipes", async (req, res) => {
 app.post("/recipes", async (req, res) => {
   try {
     const recipe = await Recipe.create(req.body);
-    console.log(recipe);
     res.json(recipe);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -80,11 +80,9 @@ app.post("/recipes", async (req, res) => {
 
 app.get("/products", async (req, res) => {
   try {
-    const recipes = await Product.findAll();
+    const products = await Product.findAll();
 
-    console.log(recipes);
-
-    res.status(200).json(recipes);
+    res.status(200).json(products);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -92,9 +90,8 @@ app.get("/products", async (req, res) => {
 
 app.post("/products", async (req, res) => {
   try {
-    const recipe = await Product.create(req.body);
-    console.log(recipe);
-    res.json(recipe);
+    const product = await Product.create(req.body);
+    res.json(product);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

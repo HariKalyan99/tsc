@@ -6,17 +6,14 @@ import {
 } from "./recipeSchema";
 
 export const fetchRecipes = async () => {
-  const { data } = await axios.get("https://dummyjson.com/recipes");
+  const { data } = await axios.get("http://localhost:8081/recipes");
   return RecipeResponseSchema.parse(data);
 };
 
 export const addRecipe = async (input: unknown) => {
   const validated = AddRecipeSchema.parse(input);
 
-  const { data } = await axios.post(
-    "https://dummyjson.com/recipes/add",
-    validated,
-  );
+  const { data } = await axios.post("http://localhost:8081/recipes", validated);
 
   return RecipeSchema.parse(data);
 };
