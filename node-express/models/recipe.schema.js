@@ -12,6 +12,33 @@ const Recipe = sequelize.define(
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    ingredients: {
+      type: DataTypes.JSONB,
+      allowNull: true,
+    },
+    steps: {
+      type: DataTypes.JSONB,
+      allowNull: true,
+    },
+    rating: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
+      validate: {
+        min: 0,
+        max: 5,
+      },
+    },
+    imageUrl: {
+      type: DataTypes.JSONB,
+      allowNull: true,
     },
   },
   {
@@ -23,3 +50,5 @@ const Recipe = sequelize.define(
 );
 
 module.exports = Recipe;
+
+// add indexes for searcing and filtering

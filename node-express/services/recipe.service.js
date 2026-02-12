@@ -1,23 +1,42 @@
 const Recipe = require("../models/recipe.schema");
 
 class RecipeService {
-  getAllRecipe = async () => {
-    try {
-      const recipes = await Recipe.findAll();
-      return recipes;
-    } catch (error) {
-      throw new Error("Error fetching the recipes");
-    }
+  getRecipe = async (id) => {
+    return await Recipe.findByPk(id);
   };
 
-  createRecipe = async (recipe) => {
-    try {
-      const createdRecipe = await Recipe.create(recipe);
+  getAllRecipe = async () => {
+    return await Recipe.findAll();
+  };
 
-      return createdRecipe;
-    } catch (error) {
-      throw new Error("Error creating a recipe");
+  createRecipe = async (recipeBody) => {
+    return await Recipe.create(recipeBody);
+  };
+
+  updateRecipe = async (id, recipeBody) => {
+    const [updatedRows] = await Recipe.update(recipeBody, {
+      where: {
+        id,
+      },
+    });
+
+    if (updatedRows === 0) {
+      throw new Error("Recipe not found");
     }
+
+    return updatedRows;
+  };
+
+  deleteRecipe = async (id) => {
+    const deletedRows = await Recipe.destroy({
+      where: { id },
+    });
+
+    if (deletedRows === 0) {
+      throw new Error("Recipe not found");
+    }
+
+    return deletedRows;
   };
 }
 
